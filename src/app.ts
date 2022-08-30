@@ -1,27 +1,49 @@
-import Fastify from 'fastify';
-import fastifyCors from '@fastify/cors';
-import fastifyHelmet from '@fastify/helmet';
+import Fastify from "fastify";
+import fastifyCors from "@fastify/cors";
+import fastifyHelmet from "@fastify/helmet";
+import fastifyEnv from "@fastify/env";
 
-import schoolsRoutes from './modules/schools/schools.route';
+import schoolsRoutes from "./modules/schools/schools.route";
 
 const app = Fastify();
-const port = 3000;
+
+const envSchema = {
+	type: "object",
+	required: ["SCHOOLS_URL"],
+	properties: {
+		SCHOOLS_URL: {
+			type: "string",
+		},
+	},
+};
+
+const initialize = () => {
+	app.register(schoolsRoutes, { prefix: "schools-list" });
+
+	app.register(fastifyCors, {
+		credentials: true,
+		origin: true,
+	});
+	app.register(fastifyHelmet, { global: true });
+	app.register(fastifyEnv, {
+		schema: envSchema,
+		dotenv: true,
+	});
+	app.after((err) =>
+		err ? console.log(err) : console.log("Env Plugin is ready.")
+	);
+};
+initialize();
 
 const main = async () => {
-  app.register(schoolsRoutes, { prefix: 'schools-list' });
-
-  app.register(fastifyCors, {
-    credentials: true,
-    origin: true,
-  });
-  app.register(fastifyHelmet, { global: true });
-
-  try {
-    await app.listen({ port });
-    console.log(`Server ready at http://localhost:${port}`);
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
-  }
+	const port = 3000;
+	try {
+		await app.ready();
+		await app.listen({ port });
+		console.log(`Server ready at http://localhost:${port}`);
+	} catch (err) {
+		console.error(err);
+		process.exit(1);
+	}
 };
 main();

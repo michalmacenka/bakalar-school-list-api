@@ -1,16 +1,9 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
-import fs from 'fs';
+import { FastifyReply, FastifyRequest } from "fastify";
+import { getSchoolsList } from "./schools.repository";
 
-import { getSchoolsList } from './schools.repository';
-
-const schoolsHandler = (req: FastifyRequest, res: FastifyReply) => {
-  fs.readFile('./data/schoolsList.json', (err, data) => {
-    getSchoolsList();
-    res
-      .code(200)
-      .header('Content-Type', 'application/json; charset=utf-8')
-      .send(err || data);
-  });
+const schoolsHandler = async (req: FastifyRequest, res: FastifyReply) => {
+	await getSchoolsList();
+	res.code(200).header("Content-Type", "application/json; charset=utf-8");
 };
 
 export { schoolsHandler };

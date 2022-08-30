@@ -3,9 +3,12 @@ import fastifyCors from "@fastify/cors";
 import fastifyHelmet from "@fastify/helmet";
 import fastifyEnv from "@fastify/env";
 import fastifyStatic from "@fastify/static";
+import schedule from "node-schedule";
+
 import path from "path";
 
 import schoolsRoutes from "./modules/schools/schools.route";
+import { getSchoolsList } from "./modules/schools/schools.repository";
 
 const app = Fastify();
 
@@ -21,7 +24,6 @@ const envSchema = {
 
 const initialize = () => {
 	app.register(schoolsRoutes, { prefix: "schools-list" });
-
 	app.register(fastifyCors, {
 		credentials: true,
 		origin: true,
@@ -42,6 +44,7 @@ const initialize = () => {
 initialize();
 
 const main = async () => {
+	schedule.scheduleJob({ hour: 0, minute: 0, dayOfWeek: 7 }, getSchoolsList);
 	const port = 3000;
 	try {
 		await app.ready();

@@ -1,9 +1,13 @@
 import { FastifyReply, FastifyRequest } from "fastify";
+
 import { getSchoolsList } from "./schools.repository";
 
-const schoolsHandler = async (req: FastifyRequest, res: FastifyReply) => {
-	await getSchoolsList();
-	res.code(200).header("Content-Type", "application/json; charset=utf-8");
+const schoolsHandler = (req: FastifyRequest, res: FastifyReply) => {
+	// getSchoolsList();
+	res
+		.code(200)
+		.header("Content-Type", "application/json; charset=utf-8")
+		.sendFile("schoolsList.json");
 };
 
 export { schoolsHandler };

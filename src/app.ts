@@ -2,6 +2,8 @@ import Fastify from "fastify";
 import fastifyCors from "@fastify/cors";
 import fastifyHelmet from "@fastify/helmet";
 import fastifyEnv from "@fastify/env";
+import fastifyStatic from "@fastify/static";
+import path from "path";
 
 import schoolsRoutes from "./modules/schools/schools.route";
 
@@ -32,6 +34,10 @@ const initialize = () => {
 	app.after((err) =>
 		err ? console.log(err) : console.log("Env Plugin is ready.")
 	);
+
+	app.register(fastifyStatic, {
+		root: path.join(__dirname, "../data"),
+	});
 };
 initialize();
 

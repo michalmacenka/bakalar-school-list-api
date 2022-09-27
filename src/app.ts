@@ -4,7 +4,7 @@ import fastifyHelmet from '@fastify/helmet';
 import fastifyEnv from '@fastify/env';
 import fastifyStatic from '@fastify/static';
 import fastifyRateLimit from '@fastify/rate-limit';
-import schedule from 'node-schedule';
+import fastifyCron from 'fastify-cron';
 
 import path from 'path';
 
@@ -45,15 +45,24 @@ const initialize = () => {
   app.register(fastifyStatic, {
     root: path.join(__dirname, '../data'),
   });
+  app.register(fastifyCron, {
+    jobs: [
+      {
+        cronTime: '* 0 0 * * 0',
+        onTick: getSchoolsList,
+      },
+    ],
+  });
 };
 initialize();
 
 const main = async () => {
-  schedule.scheduleJob({ hour: 0, minute: 0, dayOfWeek: 7 }, getSchoolsList);
   const port = 3000;
   try {
     await app.ready();
-    await app.listen({ port });
+    await app.listen({ port }, () => {
+      app.cron.startAllJobs();
+    });
     console.log(`Server ready at http://localhost:${port}`);
   } catch (err) {
     console.error(err);

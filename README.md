@@ -22,4 +22,4 @@ On get request, at https://example.com/schools-list will be only provide whole j
 ```
 
 Object contain only name and url of logging site to system.
-> If you want id of school in response too, you can just uncomment id at __[schools.repository.ts](https://github.com/michalmacenka/bakalar-school-list-api/blob/main/src/modules/schools/schools.repository.ts)__ 
+> If you want id of school in response too, you can just uncomment id at __[schools.repository.ts](https://github.com/michalmacenka/bakalar-school-list-api/blob/main/src/modules/schools/schools.repository.ts?plain=1#L94)__ 

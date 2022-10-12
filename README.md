@@ -7,7 +7,7 @@
 ---
 
 <br/><br/>
-Simple API which fetch all schools and put them into json file. Although default date is Sunday midnight, you can change date when fetching would happen. This is possible by Fastify Cron plugin. At this time API sent requests by alphabet order and after all rewrite file of list.
+Simple API which fetch all schools and put them into json file. Although default date is Sunday midnight, you can change the date when fetching will happen. This is possible by Fastify Cron plugin. At this time API send requests by alphabet order and after all rewrite file of list.
 
 On get request, at https://example.com/schools-list will be only provide whole json array of school objects.
 
@@ -22,4 +22,4 @@ On get request, at https://example.com/schools-list will be only provide whole j
 ```
 
 Object contain only name and url of logging site to system.
-> If you want id of school in response too, you can just uncomment id at __[schools.repository.ts](https://github.com/michalmacenka/bakalar-school-list-api/blob/main/src/modules/schools/schools.repository.ts?plain=1#L94)__ 
+> If you want id of school in response too, you can just uncomment `id` at __[schools.repository.ts](https://github.com/michalmacenka/bakalar-school-list-api/blob/main/src/modules/schools/schools.repository.ts?plain=1#L94)__ 

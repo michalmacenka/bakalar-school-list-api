@@ -1,15 +1,15 @@
 # Bakaláři - School List API
 
 
-### API for getting schools list which using Bakaláři system.
+### API for getting schools list which is using Bakaláři system.
 #### *Typescript | Node.js | Fastify*
 
 ---
 
 <br/><br/>
-Simple API which fetch all schools and put them into json file. Although default date is Sunday midnight, you can change the date when fetching will happen. This is possible by Fastify Cron plugin. At this time API send requests by alphabet order and after all rewrite file of list.
+Simple API to fetch all schools and put them into json file. Although default date is Sunday midnight, you can change that date while it is all fetching. This is possible because of Fastify Cron plugin. At that moment API sends requests in alphabetic order and after all requests it rewrites the json file of the list.
 
-On get request, at https://example.com/schools-list will be only provide whole json array of school objects.
+On GET request, at https://example.com/schools-list endpoint will only provide whole json array of school objects.
 
 <br/><br/>
 
@@ -21,5 +21,5 @@ On get request, at https://example.com/schools-list will be only provide whole j
 }
 ```
 
-Object contain only name and url of logging site to system.
-> If you want id of school in response too, you can just uncomment `id` at __[schools.repository.ts](https://github.com/michalmacenka/bakalar-school-list-api/blob/main/src/modules/schools/schools.repository.ts?plain=1#L94)__ 
+Object contains only name and url of logging site to system.
+> If you want the id of the school in response too, you can just uncomment `id` at __[schools.repository.ts](https://github.com/michalmacenka/bakalar-school-list-api/blob/main/src/modules/schools/schools.repository.ts?plain=1#L94)__ 
